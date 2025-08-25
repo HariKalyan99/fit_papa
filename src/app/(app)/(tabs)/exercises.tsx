@@ -3,7 +3,7 @@ import React from 'react'
 
 const exercises = () => {
   return (
-    <SafeAreaView>
+    <SafeAreaView className='flex-1'>
       <Text>exercises</Text>
     </SafeAreaView>
   )
