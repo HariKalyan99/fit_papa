@@ -1,6 +1,7 @@
 import { useSignIn } from "@clerk/clerk-expo";
 import { Link, useRouter } from "expo-router";
 import {
+  Alert,
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
@@ -25,6 +26,11 @@ export default function Page() {
   const onSignInPress = async () => {
     if (!isLoaded) return;
 
+    if(!emailAddress || !password){
+      Alert.alert("Error", "Please fill in all fields")
+    }
+
+    setIsLoading(true)
     // Start the sign-in process using the email and password provided
     try {
       const signInAttempt = await signIn.create({
@@ -46,6 +52,8 @@ export default function Page() {
       // See https://clerk.com/docs/custom-flows/error-handling
       // for more info on error handling
       console.error(JSON.stringify(err, null, 2));
+    }finally {
+      setIsLoading(false)
     }
   };
 
@@ -104,10 +112,11 @@ export default function Page() {
                     color={"#6b7280"}
                   />
                   <TextInput
-                    value={emailAddress}
+                    value={password}
                     placeholder="Enter your password"
                     placeholderTextColor={"#9ca3af"}
                     onChangeText={setPassword}
+                    secureTextEntry
                     className="flex-1 ml-3 text-gray-900"
                     editable={!isLoading}
                   ></TextInput>
@@ -144,7 +153,7 @@ export default function Page() {
             <GoogleSignIn />
 
             <View className="flex-row justify-center items-center mt-4">
-              <Text className="text-gray-600">Don't have an account</Text>
+              <Text className="text-gray-600">Don't have an account{" "}</Text>
               <Link href={"/sign-up"} asChild>
                 <TouchableOpacity>
                   <Text className="text-blue-600 font-semibold">Sign Up</Text>
