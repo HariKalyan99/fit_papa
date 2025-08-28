@@ -18,9 +18,10 @@ export default function Layout() {
 
   //correct the tabs section
   return (
-    <Stack screenOptions={{ headerShown: false }}>
+    <Stack>
       <Stack.Protected guard={isSignedIn}>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="exercise-details" options={{ headerShown: false, presentation: 'modal', gestureEnabled: true, animationTypeForReplace: 'push' }} />
       </Stack.Protected>
 
       <Stack.Protected guard={!isSignedIn}>
