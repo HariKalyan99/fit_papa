@@ -3,7 +3,7 @@
   "userInterfaceStyle": "automatic",
   "orientation": "default",
   "web": {
-    "output": "static"
+    "output": "server"
   },
   "plugins": [
     [
